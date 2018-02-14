@@ -115,6 +115,7 @@ PRODUCT_PACKAGES += \
 
 DEVICE_MANIFEST_FILE := device/qcom/sdm670/manifest.xml
 DEVICE_MATRIX_FILE   := device/qcom/common/compatibility_matrix.xml
+DEVICE_FRAMEWORK_MANIFEST_FILE := device/qcom/msmpeafowl/framework_manifest.xml
 
 #ANT+ stack
 PRODUCT_PACKAGES += \
