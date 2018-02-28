@@ -234,3 +234,5 @@ endif
 
 #Enable DuerOS for voiceUI
 BOARD_VOICEUI_USE_DUEROS := true
+
+ENABLE_VENDOR_RIL_SERVICE := true
