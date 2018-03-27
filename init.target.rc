@@ -28,9 +28,13 @@
 #
 
 on early-init
-exec u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules audio_apr audio_wglink audio_adsp_loader audio_q6_pdr audio_q6_notifier audio_q6 audio_usf audio_native audio_pinctrl_wcd audio_pinctrl_lpi audio_swr audio_platform audio_hdmi audio_wcd_spi audio_stub audio_digital_cdc audio_analog_cdc audio_msm_sdw audio_wcd_cpe audio_cpe_lsm audio_wcd9335 audio_machine_sdm670
+    exec u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules audio_apr audio_wglink audio_adsp_loader audio_q6_pdr audio_q6_notifier audio_q6 audio_usf audio_native audio_pinctrl_wcd audio_pinctrl_lpi audio_swr audio_platform audio_hdmi audio_wcd_spi audio_stub audio_digital_cdc audio_analog_cdc audio_msm_sdw audio_wcd_cpe audio_cpe_lsm audio_wcd9335 audio_machine_sdm710
     write /proc/sys/kernel/sched_boost 1
+    mkdir /firmware 0771 system system
+    mkdir /bt_firmware 0771 system system
+    mkdir /dsp 0771 media media
     symlink /data/tombstones /tombstones
+
 on init
     write /dev/stune/foreground/schedtune.sched_boost_no_override 1
     write /dev/stune/top-app/schedtune.sched_boost_no_override 1
@@ -141,6 +145,11 @@ on property:init.svc.per_mgr=running
 on property:sys.shutdown.requested=*
     stop per_proxy
 
+on boot
+    chown system system /sys/class/leds/red/blink
+    chown system system /sys/class/leds/green/blink
+    chown system system /sys/class/leds/blue/blink
+
 on charger
     start hvdcp_opti
 
@@ -198,13 +207,18 @@ service thermal-engine /system/vendor/bin/thermal-engine
 
 service adsprpcd /vendor/bin/adsprpcd
    class main
-   user root
-   group media
+   user system
+   group system
 
 service adsprpcd_audiopd /vendor/bin/adsprpcd audiopd
    class main
    user media
    group media
+
+service cdsprpcd /vendor/bin/cdsprpcd
+   class main
+   user system
+   group system
 
 #service audiod /vendor/bin/audiod
 #   class late_start
@@ -429,3 +443,8 @@ service tlocd /vendor/bin/tloc_daemon
     class late_start
     user system
     group drmrpc gps net_raw
+
+service smcinvoked /system/bin/smcinvoked
+    class main
+    user system
+    group system
