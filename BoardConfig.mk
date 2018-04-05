@@ -3,8 +3,8 @@
 # Product-specific compile-time definitions.
 #
 
-TARGET_BOARD_PLATFORM := sdm670
-TARGET_BOOTLOADER_BOARD_NAME := sdm670
+TARGET_BOARD_PLATFORM := sdm710
+TARGET_BOOTLOADER_BOARD_NAME := sdm710
 
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
@@ -29,7 +29,7 @@ TARGET_NO_BOOTLOADER := false
 TARGET_USES_UEFI := true
 TARGET_NO_KERNEL := false
 BOARD_PRESIL_BUILD := true
--include $(QCPATH)/common/sdm670/BoardConfigVendor.mk
+-include $(QCPATH)/common/sdm710/BoardConfigVendor.mk
 
 # Some framework code requires this to enable BT
 BOARD_HAVE_BLUETOOTH := false
@@ -39,6 +39,7 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/qcom/common
 USE_OPENGL_RENDERER := true
 BOARD_USE_LEGACY_UI := true
 
+ifeq ($(ENABLE_AB), true)
 # Defines for enabling A/B builds
 AB_OTA_UPDATER := true
 # Full A/B partition update set
@@ -51,6 +52,18 @@ AB_OTA_PARTITIONS ?= boot system
 BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
 TARGET_NO_RECOVERY := true
 BOARD_USES_RECOVERY_AS_BOOT := true
+else
+# Non-A/B section. Define cache and recovery partition variables.
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 0x04000000
+BOARD_CACHEIMAGE_PARTITION_SIZE := 268435456
+BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
+endif
+
+ifeq ($(ENABLE_AB), true)
+    TARGET_RECOVERY_FSTAB := device/qcom/sdm710/recovery_AB_variant.fstab
+else
+    TARGET_RECOVERY_FSTAB := device/qcom/sdm710/recovery_non-AB_variant.fstab
+endif
 
 #Enable compilation of oem-extensions to recovery
 #These need to be explicitly 
@@ -63,15 +76,11 @@ TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 
 #Enable split vendor image
 ENABLE_VENDOR_IMAGE := true
-ifeq ($(ENABLE_VENDOR_IMAGE), true)
-TARGET_RECOVERY_FSTAB := device/qcom/sdm670/recovery_vendor_variant.fstab
 BOARD_VENDORIMAGE_PARTITION_SIZE := 1073741824
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 TARGET_COPY_OUT_VENDOR := vendor
 BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
-else
-TARGET_RECOVERY_FSTAB := device/qcom/sdm670/recovery.fstab
-endif
+
 TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_BOOTIMAGE_PARTITION_SIZE := 0x04000000
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 3221225472
@@ -110,16 +119,21 @@ BOARD_VENDOR_KERNEL_MODULES := \
     $(KERNEL_MODULES_OUT)/audio_analog_cdc.ko \
     $(KERNEL_MODULES_OUT)/audio_msm_sdw.ko \
     $(KERNEL_MODULES_OUT)/audio_native.ko \
-    $(KERNEL_MODULES_OUT)/audio_machine_sdm670.ko \
-    $(KERNEL_MODULES_OUT)/llcc_perfmon.ko
+    $(KERNEL_MODULES_OUT)/audio_machine_sdm710.ko \
+    $(KERNEL_MODULES_OUT)/llcc_perfmon.ko \
+    $(KERNEL_MODULES_OUT)/rdbg.ko \
+    $(KERNEL_MODULES_OUT)/mpq-adapter.ko \
+    $(KERNEL_MODULES_OUT)/mpq-dmx-hw-plugin.ko
 
+# Enable suspend during charger mode
+BOARD_CHARGER_ENABLE_SUSPEND := true
 
 TARGET_USES_ION := true
 TARGET_USES_NEW_ION_API :=true
 TARGET_USES_QCOM_BSP := false
 TARGET_USES_DRM_PP := true
 
-BOARD_KERNEL_CMDLINE := console=ttyMSM0,115200n8 earlycon=msm_geni_serial,0xA90000 androidboot.hardware=qcom androidboot.console=ttyMSM0 video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 service_locator.enable=1 androidboot.configfs=true androidboot.usbcontroller=a600000.dwc3
+BOARD_KERNEL_CMDLINE := console=ttyMSM0,115200n8 earlycon=msm_geni_serial,0xA90000 androidboot.hardware=qcom androidboot.console=ttyMSM0 video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 service_locator.enable=1 androidboot.configfs=true androidboot.usbcontroller=a600000.dwc3 swiotlb=1
 
 BOARD_EGL_CFG := device/qcom/$(TARGET_BOARD_PLATFORM)/egl.cfg
 
@@ -190,3 +204,8 @@ TARGET_USES_LM := true
 
 #Generate DTBO image
 BOARD_KERNEL_SEPARATED_DTBO := true
+
+
+ifeq ($(ENABLE_VENDOR_IMAGE), false)
+$(error "Vendor Image is mandatory !!")
+endif
