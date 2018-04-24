@@ -151,7 +151,7 @@ on boot
     chown system system /sys/class/leds/blue/blink
 
 on charger
-    start hvdcp_opti
+    start vendor.hvdcp_opti
 
 ## import cne init file
 #on post-fs
@@ -434,7 +434,7 @@ service seempd /system/bin/seempd
     group system sdcard_rw
     socket seempdw dgram 0666 system system
 
-service hvdcp_opti /system/vendor/bin/hvdcp_opti
+service vendor.hvdcp_opti /system/vendor/bin/hvdcp_opti
     class main
     user root
     group system wakelock
