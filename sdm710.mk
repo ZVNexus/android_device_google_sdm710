@@ -17,7 +17,9 @@ TARGET_USES_AOSP := false
 TARGET_USES_AOSP_FOR_AUDIO := false
 TARGET_USES_QCOM_BSP := false
 
+ifneq ($(strip $(TARGET_USES_QSSI)),true)
 DEVICE_PACKAGE_OVERLAYS += device/qcom/sdm710/overlay
+endif
 
 # Default A/B configuration.
 ENABLE_AB ?= true
