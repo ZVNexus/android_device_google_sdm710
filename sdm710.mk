@@ -247,6 +247,9 @@ PRODUCT_PROPERTY_OVERRIDES += sys.autosuspend.timeout=500000
 #Enable QTI KEYMASTER and GATEKEEPER HIDLs
 KMGK_USE_QTI_SERVICE := true
 
+#Enable KEYMASTER 4.0
+ENABLE_KM_4_0 := true
+
 # dm-verity definitions
 ifneq ($(BOARD_AVB_ENABLE), true)
     PRODUCT_SUPPORTS_VERITY := true
