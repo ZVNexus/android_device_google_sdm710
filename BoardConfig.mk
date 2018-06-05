@@ -207,6 +207,8 @@ TARGET_USES_LM := true
 #Generate DTBO image
 BOARD_KERNEL_SEPARATED_DTBO := true
 
+#Enable DRM plugins 64 bit compilation
+TARGET_ENABLE_MEDIADRM_64 := true
 
 ifeq ($(ENABLE_VENDOR_IMAGE), false)
 $(error "Vendor Image is mandatory !!")
