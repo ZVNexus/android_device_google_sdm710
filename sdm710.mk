@@ -71,6 +71,7 @@ ifeq ($(TARGET_ENABLE_QC_AV_ENHANCEMENTS), true)
 PRODUCT_COPY_FILES += device/qcom/sdm710/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_vendor.xml
 
 PRODUCT_COPY_FILES += device/qcom/sdm710/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml
+PRODUCT_COPY_FILES += device/qcom/sdm710/media_codecs_vendor.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_vendor.xml
 PRODUCT_COPY_FILES += device/qcom/sdm710/media_codecs_sdm710_v0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_sdm710_v0.xml
 
 PRODUCT_COPY_FILES += device/qcom/sdm710/media_codecs_performance.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_performance.xml
