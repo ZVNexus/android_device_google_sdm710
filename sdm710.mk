@@ -255,6 +255,8 @@ ifneq ($(BOARD_AVB_ENABLE), true)
     PRODUCT_SUPPORTS_VERITY := true
 endif
 
+TARGET_MOUNT_POINTS_SYMLINKS := false
+
 #Enable DuerOS for voiceUI
 BOARD_VOICEUI_USE_DUEROS := true
 
