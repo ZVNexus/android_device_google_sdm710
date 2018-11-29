@@ -239,9 +239,6 @@ PRODUCT_VENDOR_MOVE_ENABLED := true
 
 PRODUCT_PROPERTY_OVERRIDES += rild.libpath=/vendor/lib64/libril-qc-hal-qmi.so
 
-#Set property to enable zRam
-PRODUCT_PROPERTY_OVERRIDES += ro.vendor.qti.config.zram=true
-
 #Property to set BG App limit
 PRODUCT_PROPERTY_OVERRIDES += ro.vendor.qti.sys.fw.bg_apps_limit=60
 
@@ -249,15 +246,14 @@ PRODUCT_PROPERTY_OVERRIDES += ro.vendor.qti.sys.fw.bg_apps_limit=60
 PRODUCT_PROPERTY_OVERRIDES += ro.vendor.iocgrp.config=1
 
 #Property for enabling learning module
-PRODUCT_PROPERTY_OVERRIDES += debug.vendor.qti.enable.lm=1
+PRODUCT_PROPERTY_OVERRIDES += vendor.debug.enable.lm=1
 
 #Property for setting the max timeout of autosuspend
 PRODUCT_PROPERTY_OVERRIDES += sys.autosuspend.timeout=500000
 
 # Property to enable app trigger
 PRODUCT_PROPERTY_OVERRIDES  += \
-  ro.vendor.at_library=libqti-at.so\
-  persist.vendor.qti.games.gt.prof=1
+  ro.vendor.at_library=libqti-at.so
 
 #Enable QTI KEYMASTER and GATEKEEPER HIDLs
 KMGK_USE_QTI_SERVICE := true
