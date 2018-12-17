@@ -11,7 +11,7 @@ BOARD_AVB_SYSTEM_ROLLBACK_INDEX_LOCATION := 2
 PRODUCT_PROPERTY_OVERRIDES += \
   dalvik.vm.heapgrowthlimit=256m
 $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
-$(call inherit-product, device/qcom/common/common64.mk)
+$(call inherit-product, device/qcom/qssi/common64.mk)
 
 PRODUCT_NAME := sdm710
 PRODUCT_DEVICE := sdm710
@@ -287,3 +287,13 @@ PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE:=true
 
 TARGET_USES_MKE2FS := true
 $(call inherit-product, build/make/target/product/product_launched_with_p.mk)
+
+
+###################################################################################
+# This is the End of target.mk file.
+# Now, Pickup other split product.mk files:
+###################################################################################
+# TODO: Relocate the system product.mk files pickup into qssi lunch, once it is up.
+$(call inherit-product-if-exists, vendor/qcom/defs/product-defs/system/*.mk)
+$(call inherit-product-if-exists, vendor/qcom/defs/product-defs/vendor/*.mk)
+###################################################################################
