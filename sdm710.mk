@@ -49,7 +49,6 @@ WLAN_CHIPSET := qca_cld3
 PRODUCT_PACKAGES += libGLES_android
 
 -include $(QCPATH)/common/config/qtic-config.mk
--include hardware/qcom/display/config/sdm710.mk
 
 PRODUCT_BOOT_JARS += tcmiface
 PRODUCT_BOOT_JARS += telephony-ext
