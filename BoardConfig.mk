@@ -3,6 +3,8 @@
 # Product-specific compile-time definitions.
 #
 
+BUILD_BROKEN_ANDROIDMK_EXPORTS=true
+BUILD_BROKEN_DUP_COPY_HEADERS=true
 TARGET_BOARD_PLATFORM := sdm710
 TARGET_BOOTLOADER_BOARD_NAME := sdm710
 
@@ -145,7 +147,7 @@ BOARD_RAMDISK_OFFSET     := 0x02000000
 
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_HEADER_ARCH := arm64
-TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
+TARGET_KERNEL_CROSS_COMPILE_PREFIX := $(shell pwd)/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin/aarch64-linux-androidkernel-
 TARGET_USES_UNCOMPRESSED_KERNEL := false
 
 MAX_EGL_CACHE_KEY_SIZE := 12*1024
@@ -210,6 +212,8 @@ endif
 #All vendor APK will be compiled against system_current API set.
 BOARD_SYSTEMSDK_VERSIONS:=28
 BOARD_VNDK_VERSION:= current
+BUILD_BROKEN_DUP_RULES := true
+BUILD_BROKEN_PHONY_TARGETS := true
 
 
 #################################################################################
