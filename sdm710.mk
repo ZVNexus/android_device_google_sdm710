@@ -91,7 +91,7 @@ endif #TARGET_ENABLE_QC_AV_ENHANCEMENTS
 PRODUCT_PACKAGES += android.hardware.media.omx@1.0-impl
 
 # Audio configuration file
--include $(TOPDIR)hardware/qcom/audio/configs/sdm710/sdm710.mk
+-include $(TOPDIR)vendor/qcom/opensource/audio-hal/primary-hal/configs/sdm710/sdm710.mk
 
 PRODUCT_PACKAGES += fs_config_files
 
