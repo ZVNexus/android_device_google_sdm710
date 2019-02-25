@@ -32,11 +32,7 @@ endif
 
 
 DTC := $(HOST_OUT_EXECUTABLES)/dtc$(HOST_EXECUTABLE_SUFFIX)
-ifeq ($(PLATFORM_SDK_VERSION), 26)
-  UFDT_APPLY_OVERLAY := $(HOST_OUT_EXECUTABLES)/ufdt_apply_overlay$(HOST_EXECUTABLE_SUFFIX)
-else
-  UFDT_APPLY_OVERLAY := $(HOST_OUT_EXECUTABLES)/ufdt_apply_overlay_host$(HOST_EXECUTABLE_SUFFIX)
-endif
+UFDT_APPLY_OVERLAY := $(HOST_OUT_EXECUTABLES)/ufdt_apply_overlay$(HOST_EXECUTABLE_SUFFIX)
 
 # ../../ prepended to paths because kernel is at ./kernel/msm-x.x
 TEMP_TOP=$(shell pwd)
