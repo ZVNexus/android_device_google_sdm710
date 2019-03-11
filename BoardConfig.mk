@@ -31,6 +31,7 @@ TARGET_NO_BOOTLOADER := false
 TARGET_USES_UEFI := true
 TARGET_NO_KERNEL := false
 BOARD_PRESIL_BUILD := true
+-include vendor/qcom/prebuilt/sdm710/BoardConfigVendor.mk
 -include $(QCPATH)/common/sdm710/BoardConfigVendor.mk
 
 # Some framework code requires this to enable BT
