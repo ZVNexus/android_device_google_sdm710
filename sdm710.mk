@@ -93,8 +93,6 @@ PRODUCT_PACKAGES += android.hardware.media.omx@1.0-impl
 # Audio configuration file
 -include $(TOPDIR)vendor/qcom/opensource/audio-hal/primary-hal/configs/sdm710/sdm710.mk
 
-USE_CUSTOM_AUDIO_POLICY := 0
-
 PRODUCT_PACKAGES += fs_config_files
 
 ifeq ($(ENABLE_AB), true)

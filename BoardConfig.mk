@@ -31,6 +31,7 @@ TARGET_NO_BOOTLOADER := false
 TARGET_USES_UEFI := true
 TARGET_NO_KERNEL := false
 BOARD_PRESIL_BUILD := true
+-include vendor/qcom/prebuilt/sdm710/BoardConfigVendor.mk
 -include $(QCPATH)/common/sdm710/BoardConfigVendor.mk
 
 # Some framework code requires this to enable BT
@@ -170,6 +171,8 @@ TARGET_PD_SERVICE_ENABLED := true
 TARGET_PER_MGR_ENABLED := true
 
 # Enable dex pre-opt to speed up initial boot
+WITH_DEXPREOPT := false
+WITH_DEXPREOPT_BOOT_IMG_AND_SYSTEM_SERVER_ONLY := true
 ifeq ($(HOST_OS),linux)
     ifeq ($(WITH_DEXPREOPT),)
       WITH_DEXPREOPT := true
