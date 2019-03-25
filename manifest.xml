@@ -1,4 +1,4 @@
-<!-- Copyright (c) 2017-2018, The Linux Foundation. All rights reserved.
+<!-- Copyright (c) 2017-2019, The Linux Foundation. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
@@ -784,6 +784,7 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             <instance>default</instance>
         </interface>
     </hal>
+
     <!-- CapabilityConfigStore HAL Service  -->
     <hal format="hidl">
         <name>vendor.qti.hardware.capabilityconfigstore</name>
@@ -792,6 +793,26 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <interface>
             <name>ICapabilityConfigStore</name>
             <instance>default</instance>
+        </interface>
+    </hal>
+
+    <!-- MLS HAL Service -->
+    <hal format="hidl">
+        <name>vendor.qti.hardware.mlshal</name>
+        <transport>hwbinder</transport>
+        <impl level="generic"></impl>
+        <version>1.0</version>
+        <interface>
+            <name>IMlsDap</name>
+            <instance>mlsdaphal</instance>
+        </interface>
+        <interface>
+            <name>IMlsVnc</name>
+            <instance>mlsvnchal</instance>
+        </interface>
+        <interface>
+            <name>IMlsIon</name>
+            <instance>mlsionhal</instance>
         </interface>
     </hal>
 </manifest>
