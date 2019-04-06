@@ -35,7 +35,6 @@ ENABLE_AB ?= true
 
 TARGET_KERNEL_VERSION := 4.9
 
-TARGET_USES_NQ_NFC := true
 
 # default is nosdcard, S/W button enabled in resource
 PRODUCT_CHARACTERISTICS := nosdcard
