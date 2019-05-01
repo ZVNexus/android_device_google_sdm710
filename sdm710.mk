@@ -70,8 +70,6 @@ PRODUCT_PACKAGES += libGLES_android
 -include $(QCPATH)/common/config/qtic-config.mk
 
 PRODUCT_BOOT_JARS += tcmiface
-PRODUCT_BOOT_JARS += telephony-ext
-PRODUCT_PACKAGES += telephony-ext
 
 TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
 
@@ -229,7 +227,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 PRODUCT_VENDOR_MOVE_ENABLED := true
 
-PRODUCT_PROPERTY_OVERRIDES += rild.libpath=/vendor/lib64/libril-qc-hal-qmi.so
 
 #Property for setting the max timeout of autosuspend
 PRODUCT_PROPERTY_OVERRIDES += sys.autosuspend.timeout=500000
@@ -250,7 +247,6 @@ TARGET_MOUNT_POINTS_SYMLINKS := false
 #Enable DuerOS for voiceUI
 BOARD_VOICEUI_USE_DUEROS := true
 
-ENABLE_VENDOR_RIL_SERVICE := true
 #Thermal
 PRODUCT_PACKAGES += android.hardware.thermal@1.0-impl \
                     android.hardware.thermal@1.0-service
