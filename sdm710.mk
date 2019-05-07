@@ -1,3 +1,26 @@
+# Default A/B configuration.
+ENABLE_AB ?= true
+
+# For QSSI builds, we skip building the system image. Instead we build the
+# "non-system" images (that we support).
+PRODUCT_BUILD_SYSTEM_IMAGE := false
+PRODUCT_BUILD_SYSTEM_OTHER_IMAGE := false
+PRODUCT_BUILD_VENDOR_IMAGE := true
+PRODUCT_BUILD_PRODUCT_IMAGE := false
+PRODUCT_BUILD_PRODUCT_SERVICES_IMAGE := false
+PRODUCT_BUILD_ODM_IMAGE := false
+ifeq ($(ENABLE_AB), true)
+PRODUCT_BUILD_CACHE_IMAGE := false
+else
+PRODUCT_BUILD_CACHE_IMAGE := true
+endif
+PRODUCT_BUILD_RAMDISK_IMAGE := true
+PRODUCT_BUILD_USERDATA_IMAGE := true
+
+# Also, since we're going to skip building the system image, we also skip
+# building the OTA package. We'll build this at a later step.
+TARGET_SKIP_OTA_PACKAGE := true
+
 # Enable AVB 2.0
 BOARD_AVB_ENABLE := true
 
@@ -29,9 +52,6 @@ TARGET_USES_RRO := true
 ifneq ($(strip $(TARGET_USES_RRO)),true)
 DEVICE_PACKAGE_OVERLAYS += device/qcom/sdm710/overlay
 endif
-
-# Default A/B configuration.
-ENABLE_AB ?= true
 
 TARGET_KERNEL_VERSION := 4.9
 
@@ -94,6 +114,9 @@ endif
 
 
 DEVICE_MANIFEST_FILE := device/qcom/sdm710/manifest.xml
+ifeq ($(ENABLE_AB), true)
+DEVICE_MANIFEST_FILE += device/qcom/sdm710/manifest_ab.xml
+endif
 DEVICE_MATRIX_FILE   := device/qcom/common/compatibility_matrix.xml
 DEVICE_FRAMEWORK_MANIFEST_FILE := device/qcom/sdm710/framework_manifest.xml
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := \
