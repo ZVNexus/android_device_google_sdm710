@@ -191,6 +191,9 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     qemu.hw.mainkeys=0
 
+#Property to enable IO cgroups
+PRODUCT_PROPERTY_OVERRIDES += ro.vendor.iocgrp.config=1
+
 # system prop for opengles version
 #
 # 196608 is decimal for 0x30000 to report version 3
