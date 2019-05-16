@@ -61,18 +61,12 @@ PRODUCT_CHARACTERISTICS := nosdcard
 
 BOARD_FRP_PARTITION_NAME := frp
 
-# WLAN chipset
-WLAN_CHIPSET := qca_cld3
-
 #Android EGL implementation
 PRODUCT_PACKAGES += libGLES_android
 
 -include $(QCPATH)/common/config/qtic-config.mk
--include hardware/qcom/display/config/sdm710.mk
 
 PRODUCT_BOOT_JARS += tcmiface
-PRODUCT_BOOT_JARS += telephony-ext
-PRODUCT_PACKAGES += telephony-ext
 
 TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
 
@@ -164,27 +158,9 @@ PRODUCT_COPY_FILES += device/qcom/sdm710/powerhint.xml:$(TARGET_COPY_OUT_VENDOR)
 PRODUCT_PACKAGES += \
     android.hardware.usb@1.0-service
 
-# WLAN host driver
-ifneq ($(WLAN_CHIPSET),)
-PRODUCT_PACKAGES += $(WLAN_CHIPSET)_wlan.ko
-endif
-
-# WLAN driver configuration file
-PRODUCT_COPY_FILES += \
-    device/qcom/sdm710/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/WCNSS_qcom_cfg.ini
-
 # MIDI feature
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.midi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.midi.xml
-
-PRODUCT_PACKAGES += \
-    wpa_supplicant_overlay.conf \
-    p2p_supplicant_overlay.conf
-
-#for wlan
-PRODUCT_PACKAGES += \
-    wificond \
-    wifilogd
 
 # Sensor conf files
 PRODUCT_COPY_FILES += \
@@ -230,7 +206,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 PRODUCT_VENDOR_MOVE_ENABLED := true
 
-PRODUCT_PROPERTY_OVERRIDES += rild.libpath=/vendor/lib64/libril-qc-hal-qmi.so
 
 #Property for setting the max timeout of autosuspend
 PRODUCT_PROPERTY_OVERRIDES += sys.autosuspend.timeout=500000
@@ -251,7 +226,6 @@ TARGET_MOUNT_POINTS_SYMLINKS := false
 #Enable DuerOS for voiceUI
 BOARD_VOICEUI_USE_DUEROS := true
 
-ENABLE_VENDOR_RIL_SERVICE := true
 #Thermal
 PRODUCT_PACKAGES += android.hardware.thermal@1.0-impl \
                     android.hardware.thermal@1.0-service
@@ -264,6 +238,10 @@ PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE:=true
 TARGET_USES_MKE2FS := true
 $(call inherit-product, build/make/target/product/product_launched_with_p.mk)
 
+#----------------------------------------------------------------------
+# wlan specific
+#----------------------------------------------------------------------
+include device/qcom/wlan/sdm710/wlan.mk
 
 ###################################################################################
 # This is the End of target.mk file.

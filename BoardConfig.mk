@@ -98,7 +98,6 @@ BOARD_PERSISTIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
 
 BOARD_VENDOR_KERNEL_MODULES := \
-    $(KERNEL_MODULES_OUT)/qca_cld3_wlan.ko \
     $(KERNEL_MODULES_OUT)/audio_apr.ko \
     $(KERNEL_MODULES_OUT)/audio_wglink.ko \
     $(KERNEL_MODULES_OUT)/audio_q6_pdr.ko \
@@ -216,6 +215,12 @@ BOARD_VNDK_VERSION:= current
 BUILD_BROKEN_DUP_RULES := true
 BUILD_BROKEN_PHONY_TARGETS := true
 
+#----------------------------------------------------------------------
+# wlan specific
+#----------------------------------------------------------------------
+ifeq ($(strip $(BOARD_HAS_QCOM_WLAN)),true)
+include device/qcom/wlan/sdm710/BoardConfigWlan.mk
+endif
 
 #################################################################################
 # This is the End of BoardConfig.mk file.

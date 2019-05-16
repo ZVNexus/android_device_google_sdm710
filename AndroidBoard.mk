@@ -68,14 +68,14 @@ $(INSTALLED_KERNEL_TARGET): $(TARGET_PREBUILT_KERNEL) | $(ACP)
 #----------------------------------------------------------------------
 include $(CLEAR_VARS)
 LOCAL_MODULE       := vold.fstab
-LOCAL_MODULE_TAGS  := optional eng
+LOCAL_MODULE_TAGS  := optional
 LOCAL_MODULE_CLASS := ETC
 LOCAL_SRC_FILES    := $(LOCAL_MODULE)
 include $(BUILD_PREBUILT)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE       := init.target.rc
-LOCAL_MODULE_TAGS  := optional eng
+LOCAL_MODULE_TAGS  := optional
 LOCAL_MODULE_CLASS := ETC
 LOCAL_SRC_FILES    := $(LOCAL_MODULE)
 LOCAL_MODULE_PATH  := $(TARGET_OUT_VENDOR_ETC)/init/hw
@@ -83,7 +83,7 @@ include $(BUILD_PREBUILT)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE       := gpio-keys.kl
-LOCAL_MODULE_TAGS  := optional eng
+LOCAL_MODULE_TAGS  := optional
 LOCAL_MODULE_CLASS := ETC
 LOCAL_SRC_FILES    := $(LOCAL_MODULE)
 LOCAL_MODULE_PATH  := $(TARGET_OUT_KEYLAYOUT)
@@ -91,7 +91,7 @@ include $(BUILD_PREBUILT)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE       := fstab.qcom
-LOCAL_MODULE_TAGS  := optional eng
+LOCAL_MODULE_TAGS  := optional
 LOCAL_MODULE_CLASS := ETC
 ifeq ($(ENABLE_AB), true)
 LOCAL_SRC_FILES    := fstab_AB_variant.qcom
@@ -100,55 +100,6 @@ LOCAL_SRC_FILES    := fstab_non_AB_variant.qcom
 endif
 LOCAL_MODULE_PATH  := $(TARGET_OUT_VENDOR_ETC)
 include $(BUILD_PREBUILT)
-
-ifeq ($(strip $(BOARD_HAS_QCOM_WLAN)),true)
-include $(CLEAR_VARS)
-LOCAL_MODULE       := wpa_supplicant_overlay.conf
-LOCAL_MODULE_TAGS  := optional
-LOCAL_MODULE_CLASS := ETC
-LOCAL_SRC_FILES    := $(LOCAL_MODULE)
-LOCAL_MODULE_PATH  := $(TARGET_OUT_VENDOR)/etc/wifi
-include $(BUILD_PREBUILT)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE       := p2p_supplicant_overlay.conf
-LOCAL_MODULE_TAGS  := optional
-LOCAL_MODULE_CLASS := ETC
-LOCAL_SRC_FILES    := $(LOCAL_MODULE)
-LOCAL_MODULE_PATH  := $(TARGET_OUT_VENDOR)/etc/wifi
-include $(BUILD_PREBUILT)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE       := hostapd_default.conf
-LOCAL_MODULE_TAGS  := optional
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_PATH  := $(TARGET_OUT_ETC)/hostapd
-LOCAL_SRC_FILES    := hostapd.conf
-include $(BUILD_PREBUILT)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE       := hostapd.accept
-LOCAL_MODULE_TAGS  := optional
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_PATH  := $(TARGET_OUT_ETC)/hostapd
-LOCAL_SRC_FILES    := hostapd.accept
-include $(BUILD_PREBUILT)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE       := hostapd.deny
-LOCAL_MODULE_TAGS  := optional
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_PATH  := $(TARGET_OUT_ETC)/hostapd
-LOCAL_SRC_FILES    := hostapd.deny
-include $(BUILD_PREBUILT)
-
-# Create symbolic links for WLAN
-$(shell mkdir -p $(TARGET_OUT_VENDOR)/firmware/wlan/qca_cld; \
-ln -sf /vendor/etc/wifi/WCNSS_qcom_cfg.ini \
-$(TARGET_OUT_VENDOR)/firmware/wlan/qca_cld/WCNSS_qcom_cfg.ini)
-
-# BOARD_HAS_QCOM_WLAN
-endif
 
 #Create dsp directory
 $(shell mkdir -p $(TARGET_OUT_VENDOR)/lib/dsp)
@@ -161,6 +112,13 @@ radio_dir := $(LOCAL_PATH)/radio
 RADIO_FILES := $(shell cd $(radio_dir) ; ls)
 $(foreach f, $(RADIO_FILES), \
 	$(call add-radio-file,radio/$(f)))
+endif
+
+#----------------------------------------------------------------------
+# wlan specific
+#----------------------------------------------------------------------
+ifeq ($(strip $(BOARD_HAS_QCOM_WLAN)),true)
+include device/qcom/wlan/sdm710/AndroidBoardWlan.mk
 endif
 
 #----------------------------------------------------------------------
