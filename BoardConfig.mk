@@ -61,9 +61,17 @@ BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 endif
 
 ifeq ($(ENABLE_AB), true)
-    TARGET_RECOVERY_FSTAB := device/qcom/sdm710/recovery_AB_variant.fstab
+    ifneq ($(strip $(BOARD_DYNAMIC_PARTITION_ENABLE)),true)
+        TARGET_RECOVERY_FSTAB := device/qcom/sdm710/recovery_AB_variant.fstab
+    else
+        TARGET_RECOVERY_FSTAB := device/qcom/sdm710/recovery_AB_dynamic_partition.fstab
+    endif
 else
-    TARGET_RECOVERY_FSTAB := device/qcom/sdm710/recovery_non-AB_variant.fstab
+    ifneq ($(strip $(BOARD_DYNAMIC_PARTITION_ENABLE)),true)
+        TARGET_RECOVERY_FSTAB := device/qcom/sdm710/recovery_non-AB_variant.fstab
+    else
+        TARGET_RECOVERY_FSTAB := device/qcom/sdm710/recovery_non-AB_dynamic_partition.fstab
+    endif
 endif
 
 ### Dynamic partition Handling
@@ -74,6 +82,8 @@ BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
     ifeq ($(ENABLE_AB), true)
         TARGET_NO_RECOVERY := true
         BOARD_USES_RECOVERY_AS_BOOT := true
+    else
+        BOARD_RECOVERYIMAGE_PARTITION_SIZE := 0x04000000
     endif
 else
 # Define the Dynamic Partition sizes and groups.
@@ -85,7 +95,7 @@ else
 BOARD_SUPER_PARTITION_GROUPS := qti_dynamic_partitions
 BOARD_QTI_DYNAMIC_PARTITIONS_SIZE := 6438256640
 BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST := vendor
-BOARD_RECOVERYIMAGE_PARTITION_SIZE := 0x04000000
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 0x06000000
 endif
 ### Dynamic partition Handling
 
