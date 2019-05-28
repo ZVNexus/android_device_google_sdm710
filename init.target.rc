@@ -124,6 +124,7 @@ on boot
     setprop vendor.usb.rmnet.func.name "gsi"
     setprop vendor.usb.rmnet.inst.name "rmnet"
     setprop vendor.usb.dpl.inst.name "dpl"
+    setprop vendor.usb.qdss.inst.name "qdss"
     setprop sys.usb.configfs 1
 
 #start camera server as daemon
@@ -452,7 +453,3 @@ service tlocd /vendor/bin/tloc_daemon
     user system
     group drmrpc gps net_raw
 
-service smcinvoked /system/bin/smcinvoked
-    class main
-    user system
-    group system
