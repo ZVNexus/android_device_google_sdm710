@@ -55,7 +55,7 @@ $(call inherit-product, device/qcom/qssi/common64.mk)
 
 PRODUCT_NAME := sdm710
 PRODUCT_DEVICE := sdm710
-PRODUCT_BRAND := Android
+PRODUCT_BRAND := qti
 PRODUCT_MODEL := SDM710 for arm64
 
 #Initial bringup flags
