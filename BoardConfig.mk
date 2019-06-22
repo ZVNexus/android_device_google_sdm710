@@ -44,6 +44,10 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/qcom/common
 USE_OPENGL_RENDERER := true
 BOARD_USE_LEGACY_UI := true
 
+# Set Header version for bootimage
+BOARD_BOOTIMG_HEADER_VERSION := 1
+BOARD_MKBOOTIMG_ARGS := --header_version $(BOARD_BOOTIMG_HEADER_VERSION)
+
 ifeq ($(ENABLE_AB), true)
 # Defines for enabling A/B builds
 AB_OTA_UPDATER := true
@@ -84,6 +88,10 @@ BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
         BOARD_USES_RECOVERY_AS_BOOT := true
     else
         BOARD_RECOVERYIMAGE_PARTITION_SIZE := 0x04000000
+        ifeq ($(BOARD_KERNEL_SEPARATED_DTBO),true)
+            # Enable DTBO for recovery image
+            BOARD_INCLUDE_RECOVERY_DTBO := true
+        endif
     endif
 else
 # Define the Dynamic Partition sizes and groups.
@@ -91,6 +99,10 @@ else
         BOARD_SUPER_PARTITION_SIZE := 12884901888
     else
         BOARD_SUPER_PARTITION_SIZE := 6442450944
+    endif
+    ifeq ($(BOARD_KERNEL_SEPARATED_DTBO),true)
+        # Enable DTBO for recovery image
+        BOARD_INCLUDE_RECOVERY_DTBO := true
     endif
 BOARD_SUPER_PARTITION_GROUPS := qti_dynamic_partitions
 BOARD_QTI_DYNAMIC_PARTITIONS_SIZE := 6438256640
