@@ -18,8 +18,10 @@ PRODUCT_BUILD_RAMDISK_IMAGE := true
 PRODUCT_BUILD_USERDATA_IMAGE := true
 
 # Also, since we're going to skip building the system image, we also skip
-# building the OTA package. We'll build this at a later step.
+# building the OTA package. We'll build this at a later step. We also don't
+# need to build the OTA tools package (we'll use the one from system build).
 TARGET_SKIP_OTA_PACKAGE := true
+TARGET_SKIP_OTATOOLS_PACKAGE := true
 
 # Enable AVB 2.0
 BOARD_AVB_ENABLE := true
@@ -54,7 +56,7 @@ $(call inherit-product, device/qcom/qssi/common64.mk)
 
 PRODUCT_NAME := sdm710
 PRODUCT_DEVICE := sdm710
-PRODUCT_BRAND := Android
+PRODUCT_BRAND := qti
 PRODUCT_MODEL := SDM710 for arm64
 
 #Initial bringup flags

@@ -163,7 +163,6 @@ on boot
     chown system system /sys/class/leds/blue/blink
 
 on charger
-    start vendor.hvdcp_opti
     setprop sys.usb.configfs 1
 
 ## import cne init file
@@ -442,11 +441,6 @@ service energy-awareness /system/vendor/bin/energy-awareness
     user system
     group system
     oneshot
-
-service vendor.hvdcp_opti /system/vendor/bin/hvdcp_opti
-    class main
-    user root
-    group system wakelock
 
 service tlocd /vendor/bin/tloc_daemon
     class late_start
