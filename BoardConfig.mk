@@ -46,7 +46,8 @@ BOARD_USE_LEGACY_UI := true
 #Generate DTBO image
 BOARD_KERNEL_SEPARATED_DTBO := true
 
-TARGET_KERNEL_APPEND_DTB := true
+#Disable appended dtb
+TARGET_KERNEL_APPEND_DTB := false
 
 # Set Header version for bootimage
 ifneq ($(strip $(TARGET_KERNEL_APPEND_DTB)),true)
