@@ -44,6 +44,9 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/qcom/common
 USE_OPENGL_RENDERER := true
 BOARD_USE_LEGACY_UI := true
 
+#Generate DTBO image
+BOARD_KERNEL_SEPARATED_DTBO := true
+
 TARGET_KERNEL_APPEND_DTB := true
 
 # Set Header version for bootimage
@@ -242,9 +245,6 @@ ADD_RADIO_FILES := true
 
 #To use libhealthd.msm instead of libhealthd.default
 BOARD_HAL_STATIC_LIBRARIES := libhealthd.msm
-
-#Generate DTBO image
-BOARD_KERNEL_SEPARATED_DTBO := true
 
 #Enable DRM plugins 64 bit compilation
 TARGET_ENABLE_MEDIADRM_64 := true
