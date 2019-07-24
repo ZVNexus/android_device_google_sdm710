@@ -1,6 +1,17 @@
 # Default A/B configuration.
 ENABLE_AB ?= true
+# By default this target is new-launch config, so set the default shipping
+# level to 29 (if not set explictly earlier)
+SHIPPING_API_LEVEL ?= 29
+# Enable Dynamic partitions only for Q new launch devices
 BOARD_DYNAMIC_PARTITION_ENABLE ?= true
+ifeq ($(SHIPPING_API_LEVEL),29)
+  PRODUCT_SHIPPING_API_LEVEL := 29
+else ifeq ($(SHIPPING_API_LEVEL),28)
+  BOARD_DYNAMIC_PARTITION_ENABLE := false
+  $(call inherit-product, build/make/target/product/product_launched_with_p.mk)
+endif
+
 # For QSSI builds, we skip building the system image. Instead we build the
 # "non-system" images (that we support).
 PRODUCT_BUILD_SYSTEM_IMAGE := false
@@ -249,7 +260,6 @@ PRODUCT_PACKAGES += vndk_package
 PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE:=true
 
 TARGET_USES_MKE2FS := true
-$(call inherit-product, build/make/target/product/product_launched_with_p.mk)
 
 #----------------------------------------------------------------------
 # wlan specific
