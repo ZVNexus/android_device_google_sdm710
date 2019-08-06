@@ -35,6 +35,8 @@ BOARD_AVB_SYSTEM_ROLLBACK_INDEX_LOCATION := 2
 else
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 PRODUCT_PACKAGES += fastbootd
+# Add default implementation of fastboot HAL.
+PRODUCT_PACKAGES += android.hardware.fastboot@1.0-impl-mock
 ifeq ($(ENABLE_AB), true)
 PRODUCT_COPY_FILES += $(LOCAL_PATH)/fstab_AB_dynamic_partition.qcom:$(TARGET_COPY_OUT_RAMDISK)/fstab.qcom
 else
@@ -155,10 +157,6 @@ PRODUCT_PACKAGES += \
     android.hardware.contexthub@1.0-impl.generic \
     android.hardware.contexthub@1.0-service
 
-# FBE support
-PRODUCT_COPY_FILES += \
-    device/qcom/sdm710/init.qti.qseecomd.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.qti.qseecomd.sh
-
 # VB xml
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.verified_boot.xml:system/etc/permissions/android.software.verified_boot.xml
@@ -230,12 +228,6 @@ PRODUCT_VENDOR_MOVE_ENABLED := true
 
 #Property for setting the max timeout of autosuspend
 PRODUCT_PROPERTY_OVERRIDES += sys.autosuspend.timeout=500000
-
-#Enable QTI KEYMASTER and GATEKEEPER HIDLs
-KMGK_USE_QTI_SERVICE := true
-
-#Enable KEYMASTER 4.0
-ENABLE_KM_4_0 := true
 
 # dm-verity definitions
 ifneq ($(BOARD_AVB_ENABLE), true)
