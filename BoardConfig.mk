@@ -122,6 +122,19 @@ BOARD_RECOVERYIMAGE_PARTITION_SIZE := 0x06000000
 endif
 ### Dynamic partition Handling
 
+# Metadata partition (applicable only for new launches)
+ifeq ($(SHIPPING_API_LEVEL),29)
+BOARD_METADATAIMAGE_PARTITION_SIZE := 16777216
+BOARD_USES_METADATA_PARTITION := true
+endif
+
+ifeq ($(SHIPPING_API_LEVEL),29)
+  BOARD_SYSTEMSDK_VERSIONS:=29
+else
+  BOARD_SYSTEMSDK_VERSIONS:=28
+
+endif
+
 #Enable compilation of oem-extensions to recovery
 #These need to be explicitly
 ifneq ($(AB_OTA_UPDATER),true)
@@ -252,9 +265,6 @@ ifeq ($(ENABLE_VENDOR_IMAGE), false)
 $(error "Vendor Image is mandatory !!")
 endif
 
-#Flag to enable System SDK Requirements.
-#All vendor APK will be compiled against system_current API set.
-BOARD_SYSTEMSDK_VERSIONS:=28
 BOARD_VNDK_VERSION:= current
 BUILD_BROKEN_DUP_RULES := true
 BUILD_BROKEN_PHONY_TARGETS := true
