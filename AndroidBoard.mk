@@ -20,9 +20,9 @@ endif
 #----------------------------------------------------------------------
 ifeq ($(KERNEL_DEFCONFIG),)
    ifeq ($(TARGET_BUILD_VARIANT),user)
-     KERNEL_DEFCONFIG := sdm670-perf_defconfig
+     KERNEL_DEFCONFIG := vendor/sdm670-perf_defconfig
    else
-     KERNEL_DEFCONFIG := sdm670_defconfig
+     KERNEL_DEFCONFIG := vendor/sdm670_defconfig
    endif
 endif
 
