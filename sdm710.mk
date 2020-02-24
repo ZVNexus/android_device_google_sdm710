@@ -274,6 +274,10 @@ TARGET_USES_MKE2FS := true
 #----------------------------------------------------------------------
 include device/qcom/wlan/sdm710/wlan.mk
 
+# Target specific Netflix custom property
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.netflix.bsp_rev=Q670-14477-1
+
 ###################################################################################
 # This is the End of target.mk file.
 # Now, Pickup other split product.mk files:
